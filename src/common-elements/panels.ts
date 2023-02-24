@@ -61,7 +61,11 @@ export const RightPanel = styled.div`
 `;
 
 export const DarkRightPanel = styled(RightPanel)`
-  background-color: ${props => props.theme.rightPanel.backgroundColor};
+  background-color: transparent;
+
+  & > *:not(:last-child) {
+    margin-bottom: 10px;
+  }
 `;
 
 export const Row = styled.div`

@@ -87,7 +87,7 @@ export class OperationModel implements IMenuItem {
   isEvent: boolean;
 
   constructor(
-    private parser: OpenAPIParser,
+    public parser: OpenAPIParser,
     private operationSpec: ExtendedOpenAPIOperation,
     parent: GroupModel | undefined,
     private options: RedocNormalizedOptions,

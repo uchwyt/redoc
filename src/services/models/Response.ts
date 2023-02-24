@@ -38,7 +38,6 @@ export class ResponseModel {
     isEvent: isRequest,
   }: ResponseProps) {
     makeObservable(this);
-
     this.expanded = options.expandResponses === 'all' || options.expandResponses[code];
 
     const { resolved: info } = parser.deref(infoOrRef);

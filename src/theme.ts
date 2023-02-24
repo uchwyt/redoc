@@ -14,7 +14,7 @@ const defaultTheme: ThemeInterface = {
   colors: {
     tonalOffset: 0.2,
     primary: {
-      main: '#32329f',
+      main: 'rgb(0, 101, 251)',
       light: ({ colors }) => lighten(colors.tonalOffset, colors.primary.main),
       dark: ({ colors }) => darken(colors.tonalOffset, colors.primary.main),
       contrastText: ({ colors }) => readableColor(colors.primary.main),
@@ -29,7 +29,7 @@ const defaultTheme: ThemeInterface = {
       main: '#ffa500',
       light: ({ colors }) => lighten(colors.tonalOffset, colors.warning.main),
       dark: ({ colors }) => darken(colors.tonalOffset, colors.warning.main),
-      contrastText: '#ffffff',
+      contrastText: '#fff',
     },
     error: {
       main: '#d41f1c',
@@ -38,16 +38,16 @@ const defaultTheme: ThemeInterface = {
       contrastText: ({ colors }) => readableColor(colors.error.main),
     },
     gray: {
-      50: '#FAFAFA',
-      100: '#F5F5F5',
+      50: '#fafafa',
+      100: '#f5f5f5',
     },
     text: {
-      primary: '#333333',
+      primary: '#333',
       secondary: ({ colors }) => lighten(colors.tonalOffset, colors.text.primary),
     },
     border: {
       dark: 'rgba(0,0,0, 0.1)',
-      light: '#ffffff',
+      light: '#fff',
     },
     responses: {
       success: {
@@ -72,15 +72,15 @@ const defaultTheme: ThemeInterface = {
       },
     },
     http: {
-      get: '#2F8132',
+      get: '#3a9601',
       post: '#186FAF',
       put: '#95507c',
       options: '#947014',
       patch: '#bf581d',
-      delete: '#cc3333',
+      delete: '#c33',
       basic: '#707070',
-      link: '#07818F',
-      head: '#A23DAD',
+      link: '#07818f',
+      head: '#a23dad',
     },
   },
   schema: {
@@ -135,7 +135,7 @@ const defaultTheme: ThemeInterface = {
   sidebar: {
     width: '260px',
     backgroundColor: '#fafafa',
-    textColor: '#333333',
+    textColor: '#333',
     activeTextColor: theme =>
       theme.sidebar.textColor !== defaultTheme.sidebar!.textColor
         ? theme.sidebar.textColor
@@ -166,8 +166,8 @@ const defaultTheme: ThemeInterface = {
     textColor: '#ffffff',
     servers: {
       overlay: {
-        backgroundColor: '#fafafa',
-        textColor: '#263238',
+        backgroundColor: 'rgb(82, 96, 109)',
+        textColor: 'rgb(245, 247, 250)',
       },
       url: {
         backgroundColor: '#fff',
@@ -179,7 +179,7 @@ const defaultTheme: ThemeInterface = {
   },
   fab: {
     backgroundColor: '#f2f2f2',
-    color: '#0065FB',
+    color: '#0065fb',
   },
 };
 

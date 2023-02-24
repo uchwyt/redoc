@@ -12,6 +12,10 @@ export const jsonStyles = css`
   white-space: ${({ theme }) => (theme.typography.code.wrap ? 'pre-wrap' : 'pre')};
   contain: content;
   overflow-x: auto;
+  padding: 10px;
+  border-radius: 4px;
+  background-color: rgb(50, 63, 75);
+  color: rgb(245, 247, 250);
 
   .callback-function {
     color: gray;
@@ -36,10 +40,7 @@ export const jsonStyles = css`
   }
 
   .hoverable {
-    padding-top: 1px;
-    padding-bottom: 1px;
-    padding-left: 2px;
-    padding-right: 2px;
+    padding: 1px 2px;
     border-radius: 2px;
   }
 
@@ -53,10 +54,6 @@ export const jsonStyles = css`
     color: #fff;
     font-family: ${props => props.theme.typography.code.fontFamily};
     font-size: ${props => props.theme.typography.code.fontSize};
-    padding-right: 6px;
-    padding-left: 6px;
-    padding-top: 0;
-    padding-bottom: 0;
     display: flex;
     align-items: center;
     justify-content: center;
