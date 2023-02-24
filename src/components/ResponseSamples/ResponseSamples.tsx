@@ -3,9 +3,10 @@ import * as React from 'react';
 
 import { OperationModel } from '../../services/models';
 
-import { RightPanelHeader, Tab, TabList, TabPanel, Tabs } from '../../common-elements';
+import { Tab, TabList, TabPanel, Tabs } from '../../common-elements';
 import { PayloadSamples } from '../PayloadSamples/PayloadSamples';
 import { l } from '../../services/Labels';
+import Expandable from '../../common-elements/Expandable';
 
 export interface ResponseSamplesProps {
   operation: OperationModel;
@@ -23,26 +24,26 @@ export class ResponseSamples extends React.Component<ResponseSamplesProps> {
 
     return (
       (responses.length > 0 && (
-        <div>
-          <RightPanelHeader> {l('responseSamples')} </RightPanelHeader>
-
-          <Tabs defaultIndex={0}>
-            <TabList>
+        <Expandable defaultExpanded title={l('responseSamples')}>
+          <div>
+            <Tabs defaultIndex={0}>
+              <TabList>
+                {responses.map(response => (
+                  <Tab className={'tab-' + response.type} key={response.code}>
+                    {response.code}
+                  </Tab>
+                ))}
+              </TabList>
               {responses.map(response => (
-                <Tab className={'tab-' + response.type} key={response.code}>
-                  {response.code}
-                </Tab>
+                <TabPanel key={response.code}>
+                  <div>
+                    <PayloadSamples content={response.content!} />
+                  </div>
+                </TabPanel>
               ))}
-            </TabList>
-            {responses.map(response => (
-              <TabPanel key={response.code}>
-                <div>
-                  <PayloadSamples content={response.content!} />
-                </div>
-              </TabPanel>
-            ))}
-          </Tabs>
-        </div>
+            </Tabs>
+          </div>
+        </Expandable>
       )) ||
       null
     );

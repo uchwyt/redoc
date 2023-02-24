@@ -4,9 +4,10 @@ import { isPayloadSample, OperationModel, RedocNormalizedOptions } from '../../s
 import { PayloadSamples } from '../PayloadSamples/PayloadSamples';
 import { SourceCodeWithCopy } from '../SourceCode/SourceCode';
 
-import { RightPanelHeader, Tab, TabList, TabPanel, Tabs } from '../../common-elements';
+import { Tab, TabList, TabPanel, Tabs } from '../../common-elements';
 import { OptionsContext } from '../OptionsProvider';
 import { l } from '../../services/Labels';
+import Expandable from '../../common-elements/Expandable';
 
 export interface RequestSamplesProps {
   operation: OperationModel;
@@ -26,30 +27,30 @@ export class RequestSamples extends React.Component<RequestSamplesProps> {
     const hideTabList = samples.length === 1 ? this.context.hideSingleRequestSampleTab : false;
     return (
       (hasSamples && (
-        <div>
-          <RightPanelHeader> {l('requestSamples')} </RightPanelHeader>
-
-          <Tabs defaultIndex={0}>
-            <TabList hidden={hideTabList}>
+        <Expandable defaultExpanded={true} title={l('requestSamples')}>
+          <div>
+            <Tabs defaultIndex={0}>
+              <TabList hidden={hideTabList}>
+                {samples.map(sample => (
+                  <Tab key={sample.lang + '_' + (sample.label || '')}>
+                    {sample.label !== undefined ? sample.label : sample.lang}
+                  </Tab>
+                ))}
+              </TabList>
               {samples.map(sample => (
-                <Tab key={sample.lang + '_' + (sample.label || '')}>
-                  {sample.label !== undefined ? sample.label : sample.lang}
-                </Tab>
+                <TabPanel key={sample.lang + '_' + (sample.label || '')}>
+                  {isPayloadSample(sample) ? (
+                    <div>
+                      <PayloadSamples content={sample.requestBodyContent} />
+                    </div>
+                  ) : (
+                    <SourceCodeWithCopy lang={sample.lang} source={sample.source} />
+                  )}
+                </TabPanel>
               ))}
-            </TabList>
-            {samples.map(sample => (
-              <TabPanel key={sample.lang + '_' + (sample.label || '')}>
-                {isPayloadSample(sample) ? (
-                  <div>
-                    <PayloadSamples content={sample.requestBodyContent} />
-                  </div>
-                ) : (
-                  <SourceCodeWithCopy lang={sample.lang} source={sample.source} />
-                )}
-              </TabPanel>
-            ))}
-          </Tabs>
-        </div>
+            </Tabs>
+          </div>
+        </Expandable>
       )) ||
       null
     );
