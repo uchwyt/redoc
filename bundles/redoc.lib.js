@@ -3720,10 +3720,10 @@
                       e.createElement('pre', null, this.state.error.stack),
                     ),
                   ),
-                  e.createElement('small', null, ' ReDoc Version: ', '2.0.0'),
+                  e.createElement('small', null, ' ReDoc Version: ', '2.1.0'),
                   ' ',
                   e.createElement('br', null),
-                  e.createElement('small', null, ' Commit: ', '238152d0'),
+                  e.createElement('small', null, ' Commit: ', '8cf6cd0c'),
                 )
               : e.createElement(e.Fragment, null, e.Children.only(this.props.children));
           }
