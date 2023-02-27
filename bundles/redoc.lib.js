@@ -3723,7 +3723,7 @@
                   e.createElement('small', null, ' ReDoc Version: ', '2.0.0'),
                   ' ',
                   e.createElement('br', null),
-                  e.createElement('small', null, ' Commit: ', '4735120f'),
+                  e.createElement('small', null, ' Commit: ', '238152d0'),
                 )
               : e.createElement(e.Fragment, null, e.Children.only(this.props.children));
           }
@@ -14651,6 +14651,9 @@
             return e;
           };
         const Wh = function (t) {
+          (0, e.useEffect)(() => {
+            console.log('redoc', 'custom by me');
+          }, []);
           const { spec: n, specUrl: o, options: i = {}, onLoaded: s } = t,
             a = Q(i.hideLoading, !1),
             l = new W(i);
