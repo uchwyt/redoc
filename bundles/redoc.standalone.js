@@ -46880,10 +46880,10 @@
                       n.createElement('pre', null, this.state.error.stack),
                     ),
                   ),
-                  n.createElement('small', null, ' ReDoc Version: ', '2.0.0'),
+                  n.createElement('small', null, ' ReDoc Version: ', '2.1.0'),
                   ' ',
                   n.createElement('br', null),
-                  n.createElement('small', null, ' Commit: ', '238152d0'),
+                  n.createElement('small', null, ' Commit: ', '8cf6cd0c'),
                 )
               : n.createElement(n.Fragment, null, n.Children.only(this.props.children));
           }
@@ -82634,8 +82634,8 @@
             return e;
           };
         jt({ useProxies: 'ifavailable' });
-        const lF = '2.0.0',
-          cF = '238152d0';
+        const lF = '2.1.0',
+          cF = '8cf6cd0c';
         function uF(e) {
           const t = (function (e) {
               const t = {},
