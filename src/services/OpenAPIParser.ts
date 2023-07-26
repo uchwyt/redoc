@@ -74,7 +74,7 @@ export class OpenAPIParser {
     if (!obj) {
       return false;
     }
-    obj = <OpenAPIRef>obj;
+    obj = obj as OpenAPIRef;
     return obj.$ref !== undefined && obj.$ref !== null;
   }
 

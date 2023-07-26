@@ -110,12 +110,12 @@ export default (env: { playground?: boolean; bench?: boolean } = {}) => ({
     new webpack.ProvidePlugin({
       Buffer: ['buffer', 'Buffer'],
     }),
-    new ForkTsCheckerWebpackPlugin({ logger: { infrastructure: 'silent', issues: 'console' } }),
+    mode !== 'production' && new ForkTsCheckerWebpackPlugin({ logger: { infrastructure: 'silent', issues: 'console' } }),
     webpackIgnore(/js-yaml\/dumper\.js$/),
     webpackIgnore(/json-schema-ref-parser\/lib\/dereference\.js/),
     webpackIgnore(/^\.\/SearchWorker\.worker$/),
     new CopyWebpackPlugin({
-      patterns: ['demo/museum.yaml'],
+      patterns: ['demo/openapi.yaml'],
     }),
   ],
 });

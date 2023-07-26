@@ -1,4 +1,5 @@
 import styled, { css } from '../../styled-components';
+import { ExecutionContext } from 'styled-components';
 
 export const OperationEndpointWrap = styled.div<{
   $expanded?: boolean;
@@ -63,7 +64,7 @@ export const EndpointInfo = styled.span`
   }
 `;
 
-export const HttpVerb = styled.span.attrs((props: { type: string; $compact?: boolean }) => ({
+export const HttpVerb = styled.span.attrs((props: { type: string; $compact?: boolean } & ExecutionContext) => ({
   className: `http-verb ${props.type}`,
 }))<{ type: string; $compact?: boolean }>`
   font-size: ${props => (props.$compact ? '0.8em' : '12px')};
