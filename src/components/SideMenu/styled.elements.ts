@@ -3,8 +3,9 @@ import { darken } from 'polished';
 
 import { deprecatedCss, ShelfIcon } from '../../common-elements';
 import styled, { css, media, ResolvedThemeInterface } from '../../styled-components';
+import { DefaultTheme, ExecutionContext } from 'styled-components';
 
-export const OperationBadge = styled.span.attrs((props: { type: string; color?: string }) => ({
+export const OperationBadge = styled.span.attrs((props: { type: string; color?: string } & ExecutionContext) => ({
   className: `operation-type ${props.type}`,
 }))<{ type: string; color?: string }>`
   width: 9ex;
@@ -72,7 +73,7 @@ export const OperationBadge = styled.span.attrs((props: { type: string; color?: 
 
 function menuItemActive(
   depth,
-  { theme }: { theme: ResolvedThemeInterface },
+  { theme }: { theme: ResolvedThemeInterface | DefaultTheme },
   option: string,
 ): string {
   if (depth > 1) {
@@ -128,7 +129,7 @@ export interface MenuItemLabelType {
   $type?: string;
 }
 
-export const MenuItemLabel = styled.label.attrs((props: MenuItemLabelType) => ({
+export const MenuItemLabel = styled.label.attrs((props: MenuItemLabelType & ExecutionContext) => ({
   className: classnames('-depth' + props.$depth, {
     active: props.$active,
   }),
