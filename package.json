@@ -84,7 +84,7 @@
     "@types/yargs": "^17.0.24",
     "@typescript-eslint/eslint-plugin": "^6.2.0",
     "@typescript-eslint/parser": "^6.2.0",
-    "@cfaester/enzyme-adapter-react-18": "^0.7.0",
+    "@wojtekmaj/enzyme-adapter-react-17": "^0.8.0",
     "beautify-benchmark": "^0.2.4",
     "conventional-changelog-cli": "^3.0.0",
     "copy-webpack-plugin": "^9.0.0",
