@@ -4,13 +4,7 @@ import type { ResolvedThemeInterface } from './theme';
 
 export type { ResolvedThemeInterface };
 
-const {
-  default: styled,
-  css,
-  createGlobalStyle,
-  keyframes,
-  ThemeProvider,
-} = styledComponents as unknown as styledComponents.ThemedStyledComponentsModule<ResolvedThemeInterface>;
+const { default: styled, css, createGlobalStyle, keyframes, ThemeProvider } = styledComponents;
 
 export const media = {
   lessThan(breakpoint, print?: boolean, extra?: string) {
