@@ -13,7 +13,7 @@ if (IS_BROWSER) {
   Stickyfill = require('stickyfill');
 }
 
-export interface StickySidebarProps extends React.PropsWithChildren {
+export interface StickySidebarProps {
   className?: string;
   scrollYOffset?: RedocRawOptions['scrollYOffset']; // passed directly or via context
   menu: MenuStore;

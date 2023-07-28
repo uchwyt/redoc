@@ -112,7 +112,7 @@ export default (env: { standalone?: boolean; browser?: boolean } = {}) => ({
       'process.platform': '"browser"',
       'process.stdout': 'null',
     }),
-    new ForkTsCheckerWebpackPlugin({ logger: 'webpack-infrastructure' }),
+    new ForkTsCheckerWebpackPlugin({ logger: { infrastructure: 'silent', issues: 'console' } }),
     new webpack.BannerPlugin(BANNER),
     new webpack.ProvidePlugin({
       Buffer: ['buffer', 'Buffer'],

@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { StyledComponent } from '../../types';
+import { StyledComponent } from 'styled-components';
 
 import { DropdownProps, MimeLabel, SimpleDropdown } from '../../common-elements/Dropdown';
 
