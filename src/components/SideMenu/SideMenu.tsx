@@ -1,7 +1,7 @@
 import { observer } from 'mobx-react';
 import * as React from 'react';
 
-import { MenuStore, RedocNormalizedOptions } from '../../services';
+import { MenuStore } from '../../services';
 import type { IMenuItem } from '../../services';
 import { OptionsContext } from '../OptionsProvider';
 import { MenuItems } from './MenuItems';
@@ -38,7 +38,7 @@ export class SideMenu extends React.Component<{ menu: MenuStore; className?: str
   }
 
   activate = (item: IMenuItem) => {
-    if (item && item.active && (this.context as RedocNormalizedOptions).menuToggle) {
+    if (item && item.active && this.context.menuToggle) {
       return item.expanded ? item.collapse() : item.expand();
     }
     this.props.menu.activateAndScroll(item, true);

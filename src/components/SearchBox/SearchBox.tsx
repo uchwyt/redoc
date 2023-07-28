@@ -16,7 +16,6 @@ import {
   SearchWrap,
 } from './styled.elements';
 import { l } from '../../services/Labels';
-import { RedocNormalizedOptions } from '../../services';
 
 export interface SearchBoxProps {
   search: SearchStore<string>;
@@ -117,7 +116,7 @@ export class SearchBox extends React.PureComponent<SearchBoxProps, SearchBoxStat
   }
 
   search = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const { minCharacterLengthToInitSearch } = this.context as RedocNormalizedOptions;
+    const { minCharacterLengthToInitSearch } = this.context;
     const q = event.target.value;
     if (q.length < minCharacterLengthToInitSearch) {
       this.clearResults(q);

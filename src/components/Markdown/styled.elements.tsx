@@ -2,7 +2,7 @@ import { headerCommonMixin, linkifyMixin } from '../../common-elements';
 import { PrismDiv } from '../../common-elements/PrismDiv';
 import styled, { css, extensionsHook, ResolvedThemeInterface } from '../../styled-components';
 
-import { StyledComponent } from '../../types';
+import { StyledComponent } from 'styled-components';
 
 export const linksCss = css`
   a {

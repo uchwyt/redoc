@@ -70,11 +70,11 @@ export class OpenAPIParser {
   /**
    * checks if the object is OpenAPI reference (contains $ref property)
    */
-  isRef<T>(obj: OpenAPIRef | T): obj is OpenAPIRef {
+  isRef<T extends unknown>(obj: OpenAPIRef | T): obj is OpenAPIRef {
     if (!obj) {
       return false;
     }
-    obj = obj as OpenAPIRef;
+    obj = <OpenAPIRef>obj;
     return obj.$ref !== undefined && obj.$ref !== null;
   }
 
@@ -84,7 +84,7 @@ export class OpenAPIParser {
    * @param forceCircular whether to dereference even if it is circular ref
    * @param mergeAsAllOf
    */
-  deref<T>(
+  deref<T extends unknown>(
     obj: OpenAPIRef | T,
     baseRefsStack: string[] = [],
     mergeAsAllOf = false,
@@ -124,7 +124,7 @@ export class OpenAPIParser {
     };
   }
 
-  mergeRefs<T>(ref: OpenAPIRef, resolved: T, mergeAsAllOf: boolean): T {
+  mergeRefs<T extends unknown>(ref: OpenAPIRef, resolved: T, mergeAsAllOf: boolean): T {
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const { $ref, ...rest } = ref;
     const keys = Object.keys(rest);
