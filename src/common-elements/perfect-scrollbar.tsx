@@ -5,6 +5,7 @@ import PerfectScrollbarType, * as PerfectScrollbarNamespace from 'perfect-scroll
 import { OptionsContext } from '../components/OptionsProvider';
 import styled, { createGlobalStyle } from '../styled-components';
 import { IS_BROWSER } from '../utils';
+import { PropsWithChildren } from 'react';
 
 /*
  * perfect scrollbar umd bundle uses exports assignment while module uses default export
@@ -27,7 +28,7 @@ const StyledScrollWrapper = styled.div`
   position: relative;
 `;
 
-export interface PerfectScrollbarProps {
+export interface PerfectScrollbarProps extends PropsWithChildren<unknown> {
   options?: PerfectScrollbarType.Options;
   className?: string;
   updateFn?: (fn) => void;
