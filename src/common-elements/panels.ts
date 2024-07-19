@@ -15,7 +15,7 @@ export const MiddlePanel = styled.div<{ $compact?: boolean }>`
 `;
 
 export const Section = styled.div.attrs(props => ({
-  [SECTION_ATTR]: props.id,
+  [SECTION_ATTR as string]: props.id,
 }))<{ $underlined?: boolean }>`
   padding: ${props => props.theme.spacing.sectionVertical}px 0;
 

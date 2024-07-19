@@ -110,7 +110,7 @@ export default (env: { playground?: boolean; bench?: boolean } = {}) => ({
     new webpack.ProvidePlugin({
       Buffer: ['buffer', 'Buffer'],
     }),
-    mode !== 'production' && new ForkTsCheckerWebpackPlugin({ logger: { infrastructure: 'silent', issues: 'console' } }),
+    new ForkTsCheckerWebpackPlugin({ logger: { infrastructure: 'silent', issues: 'console' } }),
     webpackIgnore(/js-yaml\/dumper\.js$/),
     webpackIgnore(/json-schema-ref-parser\/lib\/dereference\.js/),
     webpackIgnore(/^\.\/SearchWorker\.worker$/),

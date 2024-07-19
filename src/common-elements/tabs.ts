@@ -40,7 +40,7 @@ export const Tabs = styled(ReactTabs)<{ noBackground?: boolean }>`
         margin-bottom: -4px;
 
         &:focus {
-          outline: auto;
+          outline: none;
         }
       }
 
