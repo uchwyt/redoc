@@ -1,10 +1,11 @@
-import defaultTheme, { ResolvedThemeInterface, resolveTheme, ThemeInterface } from '../theme';
+import defaultTheme, { resolveTheme, ThemeInterface } from '../theme';
 import { querySelector } from '../utils/dom';
 import { isArray, isNumeric, mergeObjects } from '../utils/helpers';
 
 import { setRedocLabels } from './Labels';
 import { SideNavStyleEnum } from './types';
 import type { LabelsConfigRaw, MDXComponentMeta } from './types';
+import { DefaultTheme } from 'styled-components';
 
 export interface RedocRawOptions {
   theme?: ThemeInterface;
@@ -212,7 +213,7 @@ export class RedocNormalizedOptions {
     return 10;
   }
 
-  theme: ResolvedThemeInterface;
+  theme: DefaultTheme;
   scrollYOffset: () => number;
   hideHostname: boolean;
   expandResponses: { [code: string]: boolean } | 'all';

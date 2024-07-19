@@ -377,12 +377,12 @@ export const TryItConsole = observer(({ operation, onClose }: OperationProps): J
                 )}
               </ResponseBody>
             )}
-            <OperationEndpointWrap tryItExpanded={true}>
+            <OperationEndpointWrap $tryItExpanded={true}>
               <EndpointInfo>
-                <HttpVerb type={operation.httpVerb} compact={false}>
+                <HttpVerb type={operation.httpVerb} $compact={false}>
                   {operation.httpVerb}
                 </HttpVerb>
-                <ServerRelativeURL wrap>{preparedPath}</ServerRelativeURL>
+                <ServerRelativeURL $wrap>{preparedPath}</ServerRelativeURL>
               </EndpointInfo>
               <TryItButton onClick={handleSubmit}>
                 {submitting ? 'Sending...' : <>{submitted ? 'Resend' : 'Send'}</>}

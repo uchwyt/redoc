@@ -67,7 +67,7 @@ export class Endpoint extends React.Component<EndpointProps, EndpointState> {
                   onClick={this.toggle}
                   $expanded={expanded}
                   $inverted={inverted}
-                  tryItExpanded={tryItExpanded}
+                  $tryItExpanded={tryItExpanded}
                 >
                   <EndpointInfo>
                     <HttpVerb type={operation.httpVerb} $compact={this.props.compact}>
@@ -84,7 +84,7 @@ export class Endpoint extends React.Component<EndpointProps, EndpointState> {
                   <TryItButton onClick={this.toggleTryIt}>Try it</TryItButton>
                 </OperationEndpointWrap>
                 {expanded && (
-                  <Servers $expanded={expanded} aria-hidden={!expanded}>
+                  <Servers aria-hidden={!expanded}>
                     {operation.servers.map(server => {
                       const normalizedUrl = options.expandDefaultServerVariables
                         ? expandDefaultServerVariables(server.url, server.variables)

@@ -1,10 +1,10 @@
-import * as styledComponents from 'styled-components';
-
-import type { ResolvedThemeInterface } from './theme';
-
-export type { ResolvedThemeInterface };
-
-const { default: styled, css, createGlobalStyle, keyframes, ThemeProvider } = styledComponents;
+import {
+  styled,
+  css,
+  createGlobalStyle,
+  keyframes,
+  ThemeProvider
+} from 'styled-components';
 
 export const media = {
   lessThan(breakpoint, print?: boolean, extra?: string) {
