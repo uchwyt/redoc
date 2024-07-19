@@ -81,7 +81,7 @@ export const HttpVerb = styled.span.attrs((props: { type: string; $compact?: boo
   font-weight: 600;
 `;
 
-export const Servers = styled.div>`
+export const Servers = styled.div`
   padding: 10px 20px 20px;
   background: ${props => props.theme.rightPanel.servers.overlay.backgroundColor};
   color: ${props => props.theme.rightPanel.servers.overlay.textColor};
