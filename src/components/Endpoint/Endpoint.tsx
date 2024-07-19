@@ -63,7 +63,12 @@ export class Endpoint extends React.Component<EndpointProps, EndpointState> {
               <TryItConsole onClose={this.toggleTryIt} operation={operation} />
             ) : (
               <div>
-                <OperationEndpointWrap onClick={this.toggle} $expanded={expanded} $inverted={inverted} tryItExpanded={tryItExpanded}>
+                <OperationEndpointWrap
+                  onClick={this.toggle}
+                  $expanded={expanded}
+                  $inverted={inverted}
+                  tryItExpanded={tryItExpanded}
+                >
                   <EndpointInfo>
                     <HttpVerb type={operation.httpVerb} $compact={this.props.compact}>
                       {operation.httpVerb}
@@ -78,8 +83,7 @@ export class Endpoint extends React.Component<EndpointProps, EndpointState> {
                   </EndpointInfo>
                   <TryItButton onClick={this.toggleTryIt}>Try it</TryItButton>
                 </OperationEndpointWrap>
-                {
-                  expanded &&
+                {expanded && (
                   <Servers $expanded={expanded} aria-hidden={!expanded}>
                     {operation.servers.map(server => {
                       const normalizedUrl = options.expandDefaultServerVariables
@@ -105,8 +109,10 @@ export class Endpoint extends React.Component<EndpointProps, EndpointState> {
                       );
                     })}
                   </Servers>
-                }
+                )}
               </div>
+            )}
+          </>
         )}
       </OptionsContext.Consumer>
     );
