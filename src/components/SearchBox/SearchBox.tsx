@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React from 'react';
 
 import type { IMenuItem, SearchResult } from '../../services/types';
 import type { SearchStore } from '../../services/SearchStore';

@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React from 'react';
 import { PatternLabel, ToggleButton } from '../../common-elements/fields';
 import { OptionsContext } from '../OptionsProvider';
 import { SchemaModel } from '../../services';

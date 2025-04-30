@@ -1,4 +1,3 @@
-import * as React from 'react';
 import { useState } from 'react';
 import { SecurityRequirementModel } from '../../services/models/SecurityRequirement';
 import {

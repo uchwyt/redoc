@@ -1,4 +1,3 @@
-import * as React from 'react';
 import { SecuritySchemeModel } from '../../services';
 import { titleize } from '../../utils';
 import { StyledMarkdownBlock } from '../Markdown/styled.elements';

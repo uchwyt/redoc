@@ -1,5 +1,3 @@
-import * as React from 'react';
-
 import { StyledPre } from '../../common-elements/samples';
 import { ExampleModel } from '../../services/models';
 import { ExampleValue } from './ExampleValue';

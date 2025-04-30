@@ -1,5 +1,5 @@
 import { observer } from 'mobx-react';
-import * as React from 'react';
+import React from 'react';
 
 import { OperationModel } from '../../services/models';
 import styled from '../../styled-components';

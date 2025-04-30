@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React from 'react';
 
 import { SecuritySchemesModel } from '../../services';
 import { H2, Row, ShareLink, MiddlePanel, Section } from '../../common-elements';

@@ -1,5 +1,5 @@
 *
-!bundles/*
+!old-bundles/*
 !typings/**/*
 !package.json
 !README.md

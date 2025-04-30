@@ -1,4 +1,4 @@
-import * as Prism from 'prismjs';
+import Prism from 'prismjs';
 import 'prismjs/components/prism-bash.js';
 import 'prismjs/components/prism-c.js';
 import 'prismjs/components/prism-clike.js';

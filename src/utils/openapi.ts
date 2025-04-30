@@ -1,5 +1,5 @@
 import { dirname } from 'path';
-import * as URLtemplate from 'url-template';
+import URLtemplate from 'url-template';
 
 import { ExtendedOpenAPIOperation } from '../services';
 import { FieldModel } from '../services/models';

@@ -1,4 +1,3 @@
-import * as React from 'react';
 import { DropdownProps, MimeLabel, SimpleDropdown } from '../../common-elements/Dropdown';
 
 export interface DropdownOrLabelProps extends DropdownProps {

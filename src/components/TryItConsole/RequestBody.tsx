@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React from 'react';
 import {
   Section,
   SectionContent,
@@ -15,12 +15,12 @@ import ReactCodeMirror from '@uiw/react-codemirror';
 import { material } from '@uiw/codemirror-theme-material';
 import { json } from '@codemirror/lang-json';
 import Params from './Params';
+import { getIn } from 'final-form';
 import { useCallback, useMemo, useState } from 'react';
 import { FieldModel } from '../../services';
 import { DropdownOrLabel } from '../DropdownOrLabel/DropdownOrLabel';
 import { InvertedSimpleDropdown, MimeLabel } from '../PayloadSamples/styled.elements';
 import { SecurityRequirementModel } from '../../services/models/SecurityRequirement';
-import { getIn } from 'final-form';
 
 function DropdownWithinHeader(props) {
   return <DropdownOrLabel {...props} Label={MimeLabel} Dropdown={InvertedSimpleDropdown} />;

@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React from 'react';
 
 import { AppStore, MarkdownRenderer, RedocNormalizedOptions } from '../../services';
 import { BaseMarkdownProps } from './Markdown';

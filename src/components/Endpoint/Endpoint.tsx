@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React from 'react';
 import { ShelfIcon } from '../../common-elements';
 import { OperationModel } from '../../services';
 import { Markdown } from '../Markdown/Markdown';

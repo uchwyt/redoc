@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React from 'react';
 
 export const RequiredScopesRow = ({ scopes }: { scopes: string[] }): JSX.Element | null => {
   if (!scopes.length) return null;

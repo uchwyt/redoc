@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React from 'react';
 import { mount } from 'enzyme';
 
 import {
@@ -13,7 +13,7 @@ import { SecurityRequirementModel } from '../../services/models/SecurityRequirem
 import { SecurityRequirements } from '../SecurityRequirement/SecurityRequirement';
 import { withTheme } from '../testProviders';
 import { SecurityDefs } from '../SecuritySchemes/SecuritySchemes';
-import * as simpleSecurityFixture from './fixtures/simple-security-fixture.json';
+import simpleSecurityFixture from './fixtures/simple-security-fixture.json';
 
 describe('SecurityRequirement', () => {
   it('should render authDefinition', async () => {

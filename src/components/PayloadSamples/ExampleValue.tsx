@@ -1,5 +1,3 @@
-import * as React from 'react';
-
 import { isJsonLike, langFromMime } from '../../utils/openapi';
 import { JsonViewer } from '../JsonViewer/JsonViewer';
 import { SourceCodeWithCopy } from '../SourceCode/SourceCode';

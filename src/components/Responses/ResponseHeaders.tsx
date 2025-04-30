@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React from 'react';
 import { PropertiesTable } from '../../common-elements/fields-layout';
 
 import { FieldModel } from '../../services/models';

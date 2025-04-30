@@ -4,7 +4,7 @@ import {
   SecurityRequirementAndWrap,
   SecurityRequirementOrWrap,
 } from './styled.elements';
-import * as React from 'react';
+import React from 'react';
 import { AUTH_TYPES } from '../SecuritySchemes/SecuritySchemes';
 
 export interface SecurityRequirementProps {

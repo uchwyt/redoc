@@ -1,5 +1,3 @@
-import * as React from 'react';
-
 import { darken } from 'polished';
 import { ShelfIcon } from '../../common-elements';
 import { OperationBadge } from '../SideMenu/styled.elements';

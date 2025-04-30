@@ -1,5 +1,5 @@
 import { observer } from 'mobx-react';
-import * as React from 'react';
+import React from 'react';
 
 import { Badge, DarkRightPanel, H2, MiddlePanel, Row } from '../../common-elements';
 import { ShareLink } from '../../common-elements/linkify';

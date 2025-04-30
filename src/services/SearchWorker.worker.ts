@@ -1,4 +1,4 @@
-import * as lunr from 'lunr';
+import lunr from 'lunr';
 import type { SearchResult } from './types';
 
 /* just for better typings */

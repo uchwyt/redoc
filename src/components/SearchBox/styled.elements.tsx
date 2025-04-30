@@ -1,5 +1,3 @@
-import * as React from 'react';
-
 import { darken, getLuminance, lighten } from 'polished';
 import styled from '../../styled-components';
 import { MenuItemLabel } from '../SideMenu/styled.elements';
@@ -66,7 +64,7 @@ export const SearchResultsBox = styled.div`
   margin-top: 10px;
   line-height: 1.4;
   font-size: 0.9em;
-  
+
   li {
     background-color: inherit;
   }

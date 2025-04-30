@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React from 'react';
 import { ExampleValue, FieldLabel } from '../../common-elements/fields';
 
 import { l } from '../../services/Labels';

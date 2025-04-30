@@ -1,4 +1,3 @@
-import * as React from 'react';
 import { highlight } from '../../utils';
 
 import { SampleControls, SampleControlsWrap, StyledPre } from '../../common-elements';

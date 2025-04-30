@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React from 'react';
 import { useMemo } from 'react';
 import { Field } from 'react-final-form';
 import { SecurityScheme } from '../../services/models/SecurityRequirement';

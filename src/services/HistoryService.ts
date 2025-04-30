@@ -69,9 +69,3 @@ export class HistoryService {
 }
 
 export const history = new HistoryService();
-
-if (module.hot) {
-  module.hot.dispose(() => {
-    history.dispose();
-  });
-}

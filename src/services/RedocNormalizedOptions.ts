@@ -1,3 +1,4 @@
+import type { DefaultTheme } from 'styled-components';
 import defaultTheme, { resolveTheme, ThemeInterface } from '../theme';
 import { querySelector } from '../utils/dom';
 import { isArray, isNumeric, mergeObjects } from '../utils/helpers';
@@ -5,7 +6,6 @@ import { isArray, isNumeric, mergeObjects } from '../utils/helpers';
 import { setRedocLabels } from './Labels';
 import { SideNavStyleEnum } from './types';
 import type { LabelsConfigRaw, MDXComponentMeta } from './types';
-import { DefaultTheme } from 'styled-components';
 
 export type DownloadUrlsConfig = {
   title?: string;

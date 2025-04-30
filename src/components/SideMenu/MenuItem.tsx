@@ -1,5 +1,5 @@
 import { observer } from 'mobx-react';
-import * as React from 'react';
+import React from 'react';
 
 import { ShelfIcon } from '../../common-elements/shelfs';
 import type { IMenuItem } from '../../services';

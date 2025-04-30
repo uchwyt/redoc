@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React from 'react';
 import { TypeFormat, TypePrefix } from '../../common-elements/fields';
 import { ConstraintsView } from './FieldConstraints';
 import { Pattern } from './Pattern';

@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React from 'react';
 
 import { UnderlinedHeader } from '../../common-elements';
 import { PropertiesTable } from '../../common-elements/fields-layout';

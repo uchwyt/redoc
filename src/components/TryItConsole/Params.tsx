@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React from 'react';
 import { FieldModel } from '../../services';
 import { Field } from 'react-final-form';
 import { FieldArray } from 'react-final-form-arrays';

@@ -1,7 +1,7 @@
 /* tslint:disable:no-implicit-dependencies */
 
 import { shallow } from 'enzyme';
-import * as React from 'react';
+import React from 'react';
 
 import { SchemaDefinition } from '..';
 import { OpenAPIParser } from '../../services';

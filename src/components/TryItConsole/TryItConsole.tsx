@@ -1,5 +1,5 @@
 import { observer } from 'mobx-react';
-import * as React from 'react';
+import React from 'react';
 import { useCallback, useMemo, useState } from 'react';
 import { Form } from 'react-final-form';
 import arrayMutators from 'final-form-arrays';
@@ -169,7 +169,7 @@ export const TryItConsole = observer(({ operation, onClose }: OperationProps): J
         const tmpHeaders = {};
         let entry: { done: boolean; value: string };
         let done = false;
-        entry = keys.next();
+        entry = keys.next() as { done: boolean; value: string };
         do {
           const key = entry.value;
           if (key) {
@@ -177,7 +177,7 @@ export const TryItConsole = observer(({ operation, onClose }: OperationProps): J
           }
 
           if (!entry.done) {
-            entry = keys.next();
+            entry = keys.next() as { done: boolean; value: string };
           } else {
             done = true;
           }

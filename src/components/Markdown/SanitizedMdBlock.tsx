@@ -1,5 +1,4 @@
-import * as DOMPurify from 'dompurify';
-import * as React from 'react';
+import DOMPurify from 'dompurify';
 
 import { OptionsConsumer } from '../OptionsProvider';
 import { StylingMarkdownProps } from './Markdown';

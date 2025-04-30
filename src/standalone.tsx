@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React from 'react';
 import { createRoot, hydrateRoot } from 'react-dom/client';
 import { configure } from 'mobx';
 

@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React from 'react';
 
 import { FieldLabel, ExampleValue } from '../../common-elements/fields';
 import { getSerializedValue, isArray } from '../../utils';

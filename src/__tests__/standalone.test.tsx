@@ -1,7 +1,7 @@
 /* tslint:disable:no-implicit-dependencies */
 import { mount } from 'enzyme';
-import * as React from 'react';
-import * as yaml from 'js-yaml';
+import React from 'react';
+import yaml from 'js-yaml';
 
 import { readFileSync } from 'fs';
 import { resolve } from 'path';

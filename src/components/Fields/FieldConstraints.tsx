@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React from 'react';
 import { ConstraintItem } from '../../common-elements/fields';
 
 export interface ConstraintsViewProps {

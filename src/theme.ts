@@ -1,5 +1,5 @@
 import { darken, desaturate, lighten, readableColor, transparentize } from 'polished';
-import { DefaultTheme } from 'styled-components';
+import type { DefaultTheme } from 'styled-components';
 
 const defaultTheme: ThemeInterface = {
   spacing: {

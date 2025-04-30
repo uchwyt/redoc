@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React from 'react';
 import { DropdownOrLabel, DropdownOrLabelProps } from '../DropdownOrLabel/DropdownOrLabel';
 import { ParametersGroup } from './ParametersGroup';
 

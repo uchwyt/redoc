@@ -1,8 +1,8 @@
 /* tslint:disable:no-implicit-dependencies */
 
-import * as React from 'react';
+import React from 'react';
 import { renderToString } from 'react-dom/server';
-import * as yaml from 'js-yaml';
+import yaml from 'js-yaml';
 import { createStore, Redoc } from '../';
 
 import { readFileSync } from 'fs';

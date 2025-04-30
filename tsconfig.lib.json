@@ -6,6 +6,7 @@
   },
   "include": [
     "./custom.d.ts",
-    "src/index.ts"
+    "src/index.ts",
+    "./src/types/styled-components.d.ts"
   ]
 }

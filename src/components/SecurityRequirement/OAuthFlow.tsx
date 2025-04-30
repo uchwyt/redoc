@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React from 'react';
 import { OpenAPISecurityScheme } from '../../types';
 import { SecurityRow } from './styled.elements';
 import { SeeMore } from '../SeeMore/SeeMore';

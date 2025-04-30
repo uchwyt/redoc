@@ -1,4 +1,3 @@
-import * as React from 'react';
 import styled, { keyframes } from '../../styled-components';
 
 const _Spinner = (props: { className?: string; color: string }) => (

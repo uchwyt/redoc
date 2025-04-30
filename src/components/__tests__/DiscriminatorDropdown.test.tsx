@@ -3,14 +3,14 @@
 
 import { shallow } from 'enzyme';
 import toJson from 'enzyme-to-json';
-import * as React from 'react';
+import React from 'react';
 
 import { filterPropsDeep } from '../../utils/test-utils';
 
 import { ObjectSchema, Schema } from '../';
 import { OpenAPIParser, SchemaModel } from '../../services';
 import { RedocNormalizedOptions } from '../../services/RedocNormalizedOptions';
-import * as simpleDiscriminatorFixture from './fixtures/simple-discriminator.json';
+import simpleDiscriminatorFixture from './fixtures/simple-discriminator.json';
 
 const options = new RedocNormalizedOptions({});
 describe('Components', () => {
