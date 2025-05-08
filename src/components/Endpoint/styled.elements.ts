@@ -1,5 +1,5 @@
+import type { ExecutionContext } from 'styled-components';
 import styled, { css } from '../../styled-components';
-import { ExecutionContext } from 'styled-components';
 
 export const OperationEndpointWrap = styled.div<{
   $expanded?: boolean;

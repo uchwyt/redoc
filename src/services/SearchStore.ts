@@ -1,27 +1,8 @@
-import { IS_BROWSER } from '../utils/';
 import type { IMenuItem } from './types';
 import type { OperationModel } from './models';
-
-import Worker from './SearchWorker.worker';
-
-function getWorker() {
-  let worker: new () => Worker;
-  if (IS_BROWSER) {
-    try {
-      // tslint:disable-next-line
-      worker = require('workerize-loader?inline&fallback=false!./SearchWorker.worker');
-    } catch (e) {
-      worker = require('./SearchWorker.worker').default;
-    }
-  } else {
-    worker = require('./SearchWorker.worker').default;
-  }
-  return new worker();
-}
+import {dispose, done, add, search, toJS, fromExternalJS, load} from './SearchWorker.worker';
 
 export class SearchStore<T> {
-  searchWorker = getWorker();
-
   indexItems(groups: Array<IMenuItem | OperationModel>) {
     const recurse = items => {
       items.forEach(group => {
@@ -33,33 +14,32 @@ export class SearchStore<T> {
     };
 
     recurse(groups);
-    this.searchWorker.done();
+    done();
   }
 
   add(title: string, body: string, meta?: T) {
-    this.searchWorker.add(title, body, meta);
+    add(title, body, meta);
   }
 
   dispose() {
-    (this.searchWorker as any).terminate();
-    (this.searchWorker as any).dispose();
+    dispose();
   }
 
   search(q: string) {
-    return this.searchWorker.search<T>(q);
+    return search<T>(q);
   }
 
   async toJS() {
-    return this.searchWorker.toJS();
+    return toJS();
   }
 
   load(state: any) {
-    this.searchWorker.load(state);
+    load(state);
   }
 
   fromExternalJS(path?: string, exportName?: string) {
     if (path && exportName) {
-      this.searchWorker.fromExternalJS(path, exportName);
+      fromExternalJS(path, exportName);
     }
   }
 }

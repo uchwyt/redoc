@@ -1,4 +1,4 @@
-import {sample} from 'openapi-sampler';
+import { sample, type Specification } from '@har-sdk/openapi-sampler';
 
 import type { OpenAPIMediaType } from '../../types';
 import type { RedocNormalizedOptions } from '../RedocNormalizedOptions';
@@ -60,7 +60,7 @@ export class MediaTypeModel {
     if (this.schema && this.schema.oneOf) {
       this.examples = {};
       for (const subSchema of this.schema.oneOf) {
-        const sampleOutput = sample(subSchema.rawSchema as any, samplerOptions, parser.spec);
+        const sampleOutput = sample(subSchema.rawSchema as any, samplerOptions, parser.spec as Specification);
 
         if (this.schema.discriminatorProp && typeof sampleOutput === 'object' && sampleOutput) {
           sampleOutput[this.schema.discriminatorProp] = subSchema.title;
@@ -80,7 +80,7 @@ export class MediaTypeModel {
         default: new ExampleModel(
           parser,
           {
-            value: sample(info.schema as any, samplerOptions, parser.spec),
+            value: sample(info.schema as any, samplerOptions, parser.spec as Specification),
           },
           this.name,
           info.encoding,

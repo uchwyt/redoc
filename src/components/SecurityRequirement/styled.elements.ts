@@ -1,28 +1,6 @@
-import styled from 'styled-components';
 import { linksCss } from '../Markdown/styled.elements';
-import { media } from '../../styled-components';
+import styled, { media } from '../../styled-components';
 import { UnderlinedHeader } from '../../common-elements';
-
-export const Header = styled.div`
-  background-color: #e4e7eb;
-`;
-
-export const ScopeNameList = styled.ul`
-  display: inline;
-  list-style: none;
-  padding: 0;
-
-  li {
-    display: inherit;
-
-    &:after {
-      content: ',';
-    }
-    &:last-child:after {
-      content: none;
-    }
-  }
-`;
 
 export const ScopeName = styled.code`
   font-size: ${props => props.theme.typography.code.fontSize};

@@ -4,13 +4,22 @@ import React from 'react';
 import { MenuStore } from '../../services/MenuStore';
 import { RedocNormalizedOptions, RedocRawOptions } from '../../services/RedocNormalizedOptions';
 import styled, { media } from '../../styled-components';
-import { IS_BROWSER } from '../../utils/index';
+import { IS_BROWSER } from '../../utils';
 import { OptionsContext } from '../OptionsProvider';
 import { AnimatedChevronButton } from './ChevronSvg';
 
-let Stickyfill;
-if (IS_BROWSER) {
-  Stickyfill = require('stickyfill');
+// Use a function to load Stickyfill conditionally
+async function loadStickyfill() {
+  if (IS_BROWSER) {
+    try {
+      const module = await import('stickyfill');
+      return module.default || module;
+    } catch (e) {
+      console.error('Failed to load Stickyfill:', e);
+      return null;
+    }
+  }
+  return null;
 }
 
 export interface StickySidebarProps extends React.PropsWithChildren<unknown> {
@@ -22,8 +31,6 @@ export interface StickySidebarProps extends React.PropsWithChildren<unknown> {
 export interface StickySidebarState {
   offsetTop?: string;
 }
-
-const stickyfill = Stickyfill && Stickyfill();
 
 const StyledStickySidebar = styled.div<{ $open?: boolean }>`
   width: ${props => props.theme.sidebar.width};
@@ -93,10 +100,15 @@ export class StickyResponsiveSidebar extends React.Component<
   state: StickySidebarState = { offsetTop: '0px' };
 
   stickyElement: Element;
+  stickyfillInstance: any = null;
 
-  componentDidMount() {
-    if (stickyfill) {
-      stickyfill.add(this.stickyElement);
+  async componentDidMount() {
+    if(IS_BROWSER) {
+      const Stickyfill = await loadStickyfill();
+      if(Stickyfill) {
+        this.stickyfillInstance = Stickyfill();
+        this.stickyfillInstance.add(this.stickyElement);
+      }
     }
 
     // rerender when hydrating from SSR
@@ -107,8 +119,8 @@ export class StickyResponsiveSidebar extends React.Component<
   }
 
   componentWillUnmount() {
-    if (stickyfill) {
-      stickyfill.remove(this.stickyElement);
+    if (this.stickyfillInstance) {
+      this.stickyfillInstance.remove(this.stickyElement);
     }
   }
 

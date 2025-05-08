@@ -1,26 +1,15 @@
-import * as React from 'react';
+import React from 'react';
 
-import PerfectScrollbarType, * as PerfectScrollbarNamespace from 'perfect-scrollbar';
+import PerfectScrollbarClass from 'perfect-scrollbar';
 
 import { OptionsContext } from '../components/OptionsProvider';
 import styled, { createGlobalStyle } from '../styled-components';
 import { IS_BROWSER } from '../utils';
 import { PropsWithChildren } from 'react';
+import scrollbarStyles from 'perfect-scrollbar/css/perfect-scrollbar.css';
 
-/*
- * perfect scrollbar umd bundle uses exports assignment while module uses default export
- * so when bundled with webpack default export works but with jest it crashes
- * That's why the following ugly fix is required
- */
-const PerfectScrollbarConstructor =
-  PerfectScrollbarNamespace.default || (PerfectScrollbarNamespace as any as PerfectScrollbarType);
-
-let psStyles = '';
-if (IS_BROWSER) {
-  psStyles = require('perfect-scrollbar/css/perfect-scrollbar.css');
-  psStyles = (typeof psStyles.toString === 'function' && psStyles.toString()) || '';
-  psStyles = psStyles === '[object Object]' ? '' : psStyles;
-}
+// Then use it conditionally
+const psStyles = IS_BROWSER ? scrollbarStyles : '';
 
 const PSStyling = createGlobalStyle`${psStyles}`;
 
@@ -29,7 +18,7 @@ const StyledScrollWrapper = styled.div`
 `;
 
 export interface PerfectScrollbarProps extends PropsWithChildren<unknown> {
-  options?: PerfectScrollbarType.Options;
+  options?: PerfectScrollbarClass.Options;
   className?: string;
   updateFn?: (fn) => void;
 }
@@ -38,11 +27,11 @@ export class PerfectScrollbar extends React.Component<
   React.PropsWithChildren<PerfectScrollbarProps>
 > {
   private _container: HTMLElement;
-  private inst: PerfectScrollbarType;
+  private inst: PerfectScrollbarClass;
 
   componentDidMount() {
     const offset = (this._container.parentElement && this._container.parentElement.scrollTop) || 0;
-    this.inst = new PerfectScrollbarConstructor(this._container, this.props.options || {});
+    this.inst = new PerfectScrollbarClass(this._container, this.props.options || {});
     if (this._container.scrollTo) {
       this._container.scrollTo(0, offset);
     }

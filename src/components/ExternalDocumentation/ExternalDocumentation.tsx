@@ -1,5 +1,5 @@
 import { observer } from 'mobx-react';
-import * as React from 'react';
+import React from 'react';
 import styled from '../../styled-components';
 import { OpenAPIExternalDocumentation } from '../../types';
 import { linksCss } from '../Markdown/styled.elements';

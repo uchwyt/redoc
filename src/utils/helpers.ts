@@ -192,13 +192,15 @@ export function removeQueryStringAndHash(serverUrl: string): string {
   }
 }
 
-function parseURL(url: string) {
-  if (typeof URL === 'undefined') {
-    // node
-    return new (require('url').URL)(url);
-  } else {
-    return new URL(url);
+export function parseURL(url: string) {
+  if (typeof globalThis.URL !== 'undefined') {
+    return new globalThis.URL(url);
   }
+
+  // Lazy load the URL polyfill only when needed
+  // This will be tree-shaken in browser builds
+  const { URL } = require('url');
+  return new URL(url);
 }
 
 export function escapeHTMLAttrChars(str: string): string {

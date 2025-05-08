@@ -16,7 +16,7 @@ export async function loadAndBundleSpec(specUrlOrObject: object | string): Promi
   };
 
   if (IS_BROWSER) {
-    config.resolve.http.customFetch = global.fetch;
+    config.resolve.http.customFetch = globalThis.fetch;
   }
 
   if (typeof specUrlOrObject === 'object' && specUrlOrObject !== null) {

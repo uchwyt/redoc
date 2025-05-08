@@ -1,12 +1,8 @@
-import DOMPurify from 'dompurify';
-
+import dompurify from 'dompurify';
+import styled from '../../styled-components';
 import { OptionsConsumer } from '../OptionsProvider';
 import { StylingMarkdownProps } from './Markdown';
 import { StyledMarkdownBlock } from './styled.elements';
-import styled from 'styled-components';
-
-// Workaround for DOMPurify type issues (https://github.com/cure53/DOMPurify/issues/1034)
-const dompurify = DOMPurify['default'] as DOMPurify.DOMPurify;
 
 const StyledMarkdownSpan = styled(StyledMarkdownBlock)`
   display: inline;

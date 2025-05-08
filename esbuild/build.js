@@ -7,25 +7,21 @@ import { execSync } from 'child_process';
 import { fileURLToPath } from 'url';
 import yargs from 'yargs';
 import { hideBin } from 'yargs/helpers';
-import copyStaticFiles from 'esbuild-copy-static-files';
 import { replace as replacePlugin } from 'esbuild-plugin-replace';
-import globalsPlugin from 'esbuild-plugin-globals';
+import copyStaticFiles from 'esbuild-copy-static-files';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const rootDir = path.resolve(__dirname, '..');
 
 // Parse command line arguments
 const argv = yargs(hideBin(process.argv))
-  .option('standalone', { type: 'boolean', default: false })
-  .option('lib', { type: 'boolean', default: false })
-  .option('browser', { type: 'boolean', default: false })
-  .option('esm', { type: 'boolean', default: false })
-  .option('demo', { type: 'boolean', default: false })
-  .option('bench', { type: 'boolean', default: false })
-  .option('production', { type: 'boolean', default: false })
-  .option('metafile', { type: 'boolean', default: false })
-  .option('watch', { type: 'boolean', default: false })
-  .option('sourcemap', { type: 'boolean', default: true })
+  .option('lib', { type: 'boolean', default: false, description: 'Build CommonJS library version' })
+  .option('browser', { type: 'boolean', default: false, description: 'Build browser-compatible library version' })
+  .option('esm', { type: 'boolean', default: false, description: 'Build ESM library version' })
+  .option('browser-esm', { type: 'boolean', default: false, description: 'Build browser-compatible ESM library version' })
+  .option('demo', { type: 'boolean', default: false, description: 'Build demo app' })
+  .option('production', { type: 'boolean', default: false, description: 'Production build (minified)' })
+  .option('sourcemap', { type: 'boolean', default: true, description: 'Generate sourcemaps' })
   .parse();
 
 // Get package and version info
@@ -39,11 +35,6 @@ try {
   console.error('Skipping REDOC_REVISION');
   REVISION = JSON.stringify('unknown');
 }
-
-const BANNER = `ReDoc - OpenAPI/Swagger-generated API Reference Documentation
--------------------------------------------------------------
-  Version: ${ packageJson.version }
-  Repo: https://github.com/Redocly/redoc`;
 
 // Create a custom browser resolve plugin for Node.js built-ins
 function createBrowserResolvePlugin() {
@@ -68,109 +59,120 @@ function createBrowserResolvePlugin() {
       });
 
       // Handle empty modules (http, fs, os, tty)
-      build.onResolve({ filter: /^(http|fs|os|tty)$/ }, (args) => {
+      build.onResolve({ filter: /^(http|fs|os|tty)$/ }, () => {
         return { path: emptyNodeModulePath };
       });
     }
   };
 }
 
-// Define build options based on arguments
-const getBuildOptions = () => {
-  const entryPoints = [];
+// Execute the build for a specific format
+async function buildFormat(format) {
+  let entryPoint;
+  let outfile;
+  let platform;
+  let buildFormat;
+  let globalName;
+  let plugins = [];
 
-  if (argv.standalone) {
-    entryPoints.push(path.join(rootDir, 'src/standalone.tsx'));
-  } else if (argv.demo) {
-    entryPoints.push(path.join(rootDir, 'demo/index.tsx'));
-  } else if (argv.bench) {
-    entryPoints.push(path.join(rootDir, 'benchmark/index.tsx'));
-  } else {
-    entryPoints.push(path.join(rootDir, 'src/index.ts'));
+  // Configure based on format
+  if (format === 'lib') {
+    entryPoint = path.join(rootDir, 'src/index.ts');
+    outfile = path.join(rootDir, 'bundles/redoc.lib.cjs');
+    platform = 'node';
+    buildFormat = 'cjs';
+    plugins = [];
+  } else if (format === 'browser') {
+    entryPoint = path.join(rootDir, 'src/index.ts');
+    outfile = path.join(rootDir, 'bundles/redoc.browser.lib.js');
+    platform = 'browser';  // Browser environment
+    buildFormat = 'iife';
+    globalName = 'Redoc';
+    plugins = [ createBrowserResolvePlugin() ];
+  } else if (format === 'esm') {
+    entryPoint = path.join(rootDir, 'src/index.ts');
+    outfile = path.join(rootDir, 'bundles/redoc.esm.mjs');
+    platform = 'node';  // Node environment for ESM
+    buildFormat = 'esm';
+    plugins = [  ];
+  } else if (format === 'browser-esm') {
+    entryPoint = path.join(rootDir, 'src/index.ts');
+    outfile = path.join(rootDir, 'bundles/redoc.browser.esm.js');
+    platform = 'browser';  // Browser environment for Browser-ESM
+    buildFormat = 'esm';
+    plugins = [ createBrowserResolvePlugin() ];
+  } else if (format === 'demo') {
+    entryPoint = path.join(rootDir, 'demo/index.tsx');
+    outfile = path.join(rootDir, 'demo/dist/redoc-demo.bundle.js');
+    platform = 'browser';
+    buildFormat = 'iife';
+    plugins = [ createBrowserResolvePlugin() ];
+
+    // Ensure demo directory exists
+    const demoDir = path.join(rootDir, 'demo/dist');
+    if (!fs.existsSync(demoDir)) {
+      fs.mkdirSync(demoDir, { recursive: true });
+    }
+
+    // Add static file copying for demo
+    plugins.push(
+      copyStaticFiles({
+        src: path.join(rootDir, 'demo/index.html'),
+        dest: path.join(demoDir, 'index.html')
+      })
+    );
+
+    // Copy OpenAPI spec if it exists
+    const specFile = path.join(rootDir, 'demo/museum.yaml');
+    if (fs.existsSync(specFile)) {
+      plugins.push(
+        copyStaticFiles({
+          src: specFile,
+          dest: path.join(demoDir, 'museum.yaml')
+        })
+      );
+    }
   }
 
-  const outfile = argv.standalone
-                  ? path.join(rootDir, 'bundles/redoc.standalone.js')
-                  : argv.browser
-                    ? path.join(rootDir, 'bundles/redoc.browser.lib.js')
-                    : argv.esm
-                      ? path.join(rootDir, 'bundles/redoc.esm.js')
-                      : argv.demo
-                        ? path.join(rootDir, 'demo/dist/redoc-demo.bundle.js')
-                        : path.join(rootDir, 'bundles/redoc.lib.js');
+  // Define environment settings
+  const define = {
+    '__REDOC_VERSION__': VERSION,
+    '__REDOC_REVISION__': REVISION,
+    'process.env.NODE_ENV': JSON.stringify(argv.production ? 'production' : 'development'),
+    'process.env.DEBUG': 'globalThis.DEBUG'
+  };
 
-  const format = argv.esm ? 'esm' : 'iife';
-  const target = [ 'es2019' ];
-  const globalName = 'Redoc';
-
-  // Define ignored modules for different builds
-  const ignorePatterns = [ 'js-yaml/dumper.js', 'json-schema-ref-parser/lib/dereference.js' ];
-
-  if (argv.standalone) {
-    ignorePatterns.push('./SearchWorker.worker');
+  // Add browser environment emulation only for browser builds
+  if (platform === 'browser') {
+    Object.assign(define, {
+      'process.env': '{}',
+      'process.platform': '"browser"',
+      'process.stdout': 'null',
+    });
   }
 
-  const external = argv.standalone
-                   ? []
-                   : [ 'react', 'react-dom', 'styled-components', 'mobx', 'mobx-react' ];
+  // Add replacement plugin
+  plugins.unshift(
+    replacePlugin({
+      include: /\.tsx?$/,
+      'process.env.NODE_ENV': argv.production ? '"production"' : '"development"',
+    })
+  );
 
-  // Handle browser vs node environment
-  const browserNodeEmulation = {
-    'process.env': '{}',
-    'process.platform': '"browser"',
-    'process.stdout': 'null',
-  };
-
-  // Handle standalone build external modules
-  const standaloneExternals = {
-    'esprima': 'null',
-    'node-fetch': 'null',
-    'node-fetch-h2': 'null',
-    'yaml': 'null',
-    'url': 'null',
-    'safe-json-stringify': 'null',
-  };
-
-  return {
-    entryPoints,
+  // Build config
+  const buildConfig = {
+    entryPoints: [ entryPoint ],
     outfile,
     bundle: true,
-    minify: argv.production,
+    minify: false,
     sourcemap: argv.sourcemap,
-    target,
-    platform: 'browser',
-    format,
-    globalName: format === 'iife' ? globalName : undefined,
-    metafile: argv.metafile,
-    banner: {
-      js: BANNER,
-    },
-    define: {
-      '__REDOC_VERSION__': VERSION,
-      '__REDOC_REVISION__': REVISION,
-      ...browserNodeEmulation,
-    },
-    plugins: [
-      replacePlugin({
-        include: /\.tsx?$/,
-        'process.env.NODE_ENV': argv.production ? '"production"' : '"development"',
-      }),
-      createBrowserResolvePlugin(),
-      ...( argv.standalone ? [
-        globalsPlugin(standaloneExternals)
-      ] : [] ),
-      ...( argv.demo ? [
-        copyStaticFiles({
-          src: path.join(rootDir, 'demo/museum.yaml'),
-          dest: path.join(rootDir, 'demo/dist/museum.yaml')
-        }),
-        copyStaticFiles({
-          src: path.join(rootDir, 'demo/playground/index.html'),
-          dest: path.join(rootDir, 'demo/dist/index.html')
-        })
-      ] : [] )
-    ],
-    external,
+    target: [ 'es2019' ],
+    platform,
+    format: buildFormat,
+    globalName,
+    define,
+    tsconfig: 'tsconfig.lib.json',
+    plugins,
     loader: {
       '.png': 'dataurl',
       '.svg': 'dataurl',
@@ -181,34 +183,81 @@ const getBuildOptions = () => {
       '.css': 'text',
     },
   };
-};
 
-// Execute the build
-const runBuild = async () => {
+  // Set external packages for library builds (not demo)
+  if (format !== 'demo') {
+    buildConfig.external = [
+      'react',
+      'react-dom',
+      'styled-components',
+      'mobx',
+      'mobx-react',
+      'final-form',
+      'final-form-arrays',
+      'final-form-focus',
+      'final-form-calculate',
+      'react-final-form',
+      'react-final-form-arrays',
+      'axios',
+      'validator',
+      'react-tabs',
+      'debug',
+      '@har-sdk/openapi-sampler'
+    ];
+  }
+
   try {
-    const options = getBuildOptions();
+    // Simple one-time build
+    await esbuild.build(buildConfig);
+    console.log(`Built ${ outfile }`);
+  } catch (error) {
+    console.error(`Error building ${ format }:`, error);
+    process.exit(1);
+  }
+}
 
-    if (argv.watch) {
-      // Set up watch mode
-      const context = await esbuild.context(options);
-      await context.watch();
-      console.log('Watching for changes...');
-    } else {
-      // Run a one-time build
-      const result = await esbuild.build(options);
-
-      if (argv.metafile) {
-        // Write metafile for analysis
-        fs.writeFileSync('meta.json', JSON.stringify(result.metafile));
-        console.log('Build metadata written to meta.json');
-      }
-
-      console.log(`Built ${ options.outfile }`);
+// Run all requested builds
+async function runBuilds() {
+  try {
+    // Ensure bundles directory exists
+    if (!fs.existsSync(path.join(rootDir, 'bundles'))) {
+      fs.mkdirSync(path.join(rootDir, 'bundles'), { recursive: true });
     }
+
+    const buildPromises = [];
+
+    if (argv.lib) {
+      buildPromises.push(buildFormat('lib'));
+    }
+
+    if (argv.browser) {
+      buildPromises.push(buildFormat('browser'));
+    }
+
+    if (argv.esm) {
+      buildPromises.push(buildFormat('esm'));
+    }
+
+    if (argv['browser-esm']) {
+      buildPromises.push(buildFormat('browser-esm'));
+    }
+
+    if (argv.demo) {
+      buildPromises.push(buildFormat('demo'));
+    }
+
+    if (buildPromises.length === 0) {
+      console.log('No build type specified. Use --lib, --browser, --esm, --browser-esm, or --demo');
+      process.exit(1);
+    }
+
+    await Promise.all(buildPromises);
+
+    console.log('All builds completed successfully');
   } catch (error) {
     console.error('Build failed:', error);
     process.exit(1);
   }
-};
+}
 
-runBuild();
+runBuilds();

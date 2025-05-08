@@ -1,9 +1,9 @@
 import classnames from 'classnames';
 import { darken } from 'polished';
+import type { DefaultTheme, ExecutionContext } from 'styled-components';
 
 import { deprecatedCss, ShelfIcon } from '../../common-elements';
 import styled, { css, media } from '../../styled-components';
-import { DefaultTheme, ExecutionContext } from 'styled-components';
 
 export const OperationBadge = styled.span.attrs((props: { type: string; color?: string } & ExecutionContext) => ({
   className: `operation-type ${props.type}`,

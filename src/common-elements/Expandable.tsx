@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React from 'react';
 import styled, { css, keyframes } from '../styled-components';
 import { ShelfIcon } from './shelfs';
 import { useCallback, useState } from 'react';
